@@ -1,16 +1,31 @@
 <nav>
     <div class="nav-wrapper container">
-    	<a class="brand-logo">VOTR</a>
-    	<ul id="nav-mobile" class="right hide-on-med-and-down">
-    		
-    		<li><a ng-click="ctrl.logout()">Logout</a></li></li>
-    	</ul>
+        <a class="brand-logo">VOTR</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            
+            <li><a ng-click="ctrl.logout()">Logout</a></li></li>
+        </ul>
     </div>
 </nav>
 
 <div class="container">
-	<div class="table-title">
-		<h3>Hi {{ctrl.userFirstname}}, here are the bills you are watching:</h3>
-	</div>
+    <div class="table-title">
+        <h3>Hi {{ctrl.userFirstname}}, here are the bills you are watching:</h3>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <th>Bill Number</th>
+                <th>Bill Name</th>
+                <th>Categories</th>
+            </tr>
+            <tr ng-repeat="n in ctrl.counter">
+                <td>{{ ctrl.billsNumbersFE[n - 1] }}</td>
+                <td>{{ ctrl.billsNamesFE[n - 1] }}</td>
+                <td>{{ ctrl.indicoResultsArr[n - 1] }}</td>
+            </tr>
+        </table>
+    </div>
 
 </div>
