@@ -15,7 +15,18 @@
 
 		// Public Data
 		dashVm.API_BASE = 'http://api.openparliament.ca';
+		dashVm.counter = [];
+		dashVm.billsNumbersFE = "";
+		dashVm.billsNamesFE = "";
+		dashVm.indicoResults = [];
+		dashVm.indicoResultsArr = [];
 
+
+		for(var i = 1; i <= 20; i++) {
+			dashVm.counter.push(i);
+		}
+
+		console.log(dashVm.counter);
 
 		// Get user data from LocalStorage
 		dashVm.userFirstname = localStorage.getItem("userFirstname");
@@ -27,10 +38,10 @@
 		dashVm.loginStatus = localStorage.getItem("userLoginStatus");
 
 		// Check if logged in, if not, send user back to landing page
-		if (!dashVm.loginStatus) {
-			console.log("Not Logged in!");
-			$state.go('landing');
-		}
+		// if (!dashVm.loginStatus) {
+		// 	console.log("Not Logged in!");
+		// 	$state.go('landing');
+		// }
 
 		// Grab top 20 bills
 		$http({
@@ -61,8 +72,25 @@
 			    'data': DataSrv.billsNames
 			  })
 			).then(function(res) { 
-				console.log(JSON.parse(res)); 
+				// console.log(JSON.parse(res)); 
+				console.log(JSON.parse(res).results);
+				dashVm.indicoResults = JSON.parse(res);
+				dashVm.indicoResults = dashVm.indicoResults.results;
+
+				console.log(dashVm.indicoResults);
+				for(var i = 0; i < 20; i++) {
+					dashVm.indicoResultsArr.push(dashVm.indicoResults[i][1]);
+					// console.log(dashVm.indicoResults);
+
+				}
+
+				localStorage.setItem("resultsObj", dashVm.indicoResults);
 			});
+
+			dashVm.billsNumbersFE = DataSrv.billsNumbers;
+			dashVm.billsNamesFE = DataSrv.billsNames;
+
+			console.log(dashVm.billsNumberFE);
 
 		}
 
@@ -75,14 +103,6 @@
 		// ).then(function(res) { 
 		// 	console.log(JSON.parse(res)); 
 		// });
-
-
-
-
-
-
-
-
 
 		function logout() {
 			localStorage.setItem("userLoginStatus", false);

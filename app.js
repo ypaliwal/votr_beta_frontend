@@ -7,7 +7,7 @@
 	angular
 		.module('myApp')
 		.config(function($stateProvider, $httpProvider, $urlRouterProvider){
-			$urlRouterProvider.otherwise('/');
+			$urlRouterProvider.otherwise('/dashboard');
 
 			$stateProvider
 			.state('landing', {
